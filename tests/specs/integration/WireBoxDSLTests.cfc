@@ -9,15 +9,12 @@ component extends="tests.resources.BaseIntegrationTest" {
 		describe( "WireBox custom DSL", function(){
 			beforeEach( function( currentSpec ){
 				setup();
-				structDelete( request, "_lastInvalidEvent" );
 			} );
 
 			it( "can handle box setting namespace", function(){
 				// box namespace === coldbox namespace
-				var coldboxresult = controller
-					.getWirebox()
-					.getInstance( dsl = "coldbox:setting:appName" );
-				var boxresult = controller.getWirebox().getInstance( dsl = "box:setting:appName" );
+				var coldboxresult = controller.getWirebox().getInstance( dsl = "coldbox:setting:appName" );
+				var boxresult     = controller.getWirebox().getInstance( dsl = "box:setting:appName" );
 
 				expect( boxresult ).toBe( coldboxresult );
 			} );
@@ -29,17 +26,13 @@ component extends="tests.resources.BaseIntegrationTest" {
 			} );
 
 			it( "can handle 4 stage module settings namespace", function(){
-				var result = controller
-					.getWirebox()
-					.getInstance( dsl = "box:moduleSettings:HTMLHelper:CSS_Path" );
+				var result = controller.getWirebox().getInstance( dsl = "box:moduleSettings:HTMLHelper:CSS_Path" );
 
 				expect( result ).toBeString();
 			} );
 
 			it( "can handle 3 stage configSettings namespace", function(){
-				var result = controller
-					.getWirebox()
-					.getInstance( dsl = "box:configSettings:appName" );
+				var result = controller.getWirebox().getInstance( dsl = "box:configSettings:appName" );
 
 				expect( result ).toBeString();
 			} );

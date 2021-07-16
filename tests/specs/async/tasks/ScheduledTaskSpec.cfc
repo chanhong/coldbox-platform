@@ -249,30 +249,28 @@ component extends="tests.specs.async.BaseAsyncSpec" {
 				} );
 
 				it( "can have a day of the month constraint", function(){
-					var t = scheduler.task( "test" );
-					var target = t.getJavaNow().plusDays( javacast( "int", 3 ) ).getDayOfMonth();
-					t.setDayOfTheMonth(
-						target
-					);
-					expect( t.isConstrained() ).toBeTrue( "Day is : #target#");
+					var t      = scheduler.task( "test" );
+					var target = t
+						.getJavaNow()
+						.plusDays( javacast( "int", 3 ) )
+						.getDayOfMonth();
+					t.setDayOfTheMonth( target );
+					expect( t.isConstrained() ).toBeTrue( "Day is : #target#" );
 
-					var target = t.getJavaNow().getDayOfMonth()
-					t.setDayOfTheMonth(
-						t.getJavaNow().getDayOfMonth()
-					);
-					expect( t.isConstrained() ).toBeFalse( "!Day is #target#");
+					var target = t.getJavaNow().getDayOfMonth();
+					t.setDayOfTheMonth( t.getJavaNow().getDayOfMonth() );
+					expect( t.isConstrained() ).toBeFalse( "!Day is #target#" );
 				} );
 
 				it( "can have a last business day of the month constraint", function(){
-					var nowDate = new coldbox.system.async.time.ChronoUnit()
-						.toLocalDateTime( now(), "UTC" );
+					var nowDate = new coldbox.system.async.time.ChronoUnit().toLocalDateTime( now(), "UTC" );
 
 					var t = prepareMock( scheduler.task( "test" ) ).setLastBusinessDay( true );
 
 					makePublic( t, "getLastDayOfTheMonth" );
 
 					// If we are at the last day, increase it
-					if( nowDate.getDayOfMonth() == t.getLastDayOfTheMonth().getDayOfMonth() ){
+					if ( nowDate.getDayOfMonth() == t.getLastDayOfTheMonth().getDayOfMonth() ) {
 						nowDate = nowDate.plusDays( javacast( "int", -1 ) );
 					}
 
